@@ -94,8 +94,11 @@ const promptData = async function() {
                 }
             ]);
     
-            if(addPrompt === 'Yes') {
+            if(addPrompt === 'No') {
+                createFile();
+            } else {
                 promptData();
+
             }
             // const test1 = a.getRole();
             // console.log(test1);
@@ -124,8 +127,11 @@ const promptData = async function() {
                 }
             ]);
     
-            if(addPrompt === 'Yes') {
+            if(addPrompt === 'No') {
+                createFile();
+            }else {
                 promptData();
+
             }
     
         }
@@ -148,21 +154,19 @@ const promptData = async function() {
                     }
                 ]);
     
-                if (addPrompt === 'Yes') {
-                    promptData();
+                if (addPrompt === 'No') {
+                    createFile();
                 } else {
-                    const html = render(employees);
-    
-                    const { teamName } = await inquirer.prompt([
-                        {
-                            message: 'Enter team name',
-                            name: 'teamName'
-                        }
-                    ]);
-    
-                    // fs.writeFileSync(outputPath, html, 'utf-8', () =>{
-                    //     console.log('Wrote file');
-                    // })
+                    promptData();
+                    
+                    // const { teamName } = await inquirer.prompt([
+                    //     {
+                    //         message: 'Enter team name',
+                    //         name: 'teamName'
+                    //     }
+                    // ]);
+                    
+                    
                 }
     
             }
@@ -176,6 +180,16 @@ const promptData = async function() {
             console.log(error);
         }
     }
+
+const createFile = () => {
+    const html = render(employees);
+    fs.writeFile(outputPath, html, (error) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log('Wrote file');
+    })
+}
     
     
-    init();
+init();
